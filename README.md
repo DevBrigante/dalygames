@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🎮 DalyGames – Explore jogos com performance e inteligência
 
-First, run the development server:
+**GameVerse** é uma aplicação moderna construída com **Next.js 13+ (App Router)**, que permite aos usuários explorar, visualizar e salvar jogos favoritos com uma experiência fluida, responsiva e altamente performática.
+
+## 🔥 Destaques do Projeto
+
+- ✅ **SEO** com metadados dinâmicos (Open Graph, título, descrição e indexação customizada)
+- ⚙️ **SSR (Server-Side Rendering)** para páginas dinâmicas otimizadas
+- 📦 **SSG com revalidação automática** para conteúdo estático atualizado
+- 🧠 Uso combinado de **Server e Client Components**
+- 🔍 Pesquisa de jogos com base no título
+- 🧾 Detalhamento completo dos jogos com categorias, data de lançamento e plataformas
+- ❤️ Sistema de favoritos com edição e remoção
+- 💅 Estilização com **TailwindCSS**
+
+---
+
+## 🧱 Tecnologias Utilizadas
+
+- [Next.js 13 App Router](https://nextjs.org/docs/app)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [API externa de games (via env)] – integração via fetch
+- SEO com [Metadata API do Next 13](https://nextjs.org/docs/app/api-reference/functions/generate-metadata)
+
+---
+
+## ⚙️ Como rodar localmente
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone o repositório
+git clone https://github.com/seu-usuario/dalygame.git
+
+# Entre na pasta do projeto
+cd dalygame
+
+# Instale as dependências
+npm install
+
+# Crie um arquivo .env.local com as variáveis da API
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📄 .env.local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_API_URL=https://sua-api-de-games.com
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Rode o servidor de desenvolvimento
+npm run dev
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Exemplos Técnicos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🧠 SSR + Metadata dinâmica
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```ts
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const res = await fetch(`${process.env.NEXT_API_URL}/game/${params.id}`);
+  const game = await res.json();
 
-## Deploy on Vercel
+  return {
+    title: game.title,
+    description: game.description.slice(0, 100),
+    openGraph: {
+      images: game.image_url,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    }
+  };
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📌 Funcionalidades
+
+- [x] Buscar jogos pelo nome
+- [x] Exibir jogo do dia com destaque visual
+- [x] Ver detalhes de jogos por ID com renderização no servidor
+- [x] SEO e metadados para cada página
+- [x] Interface 100% responsiva com TailwindCSS
+
+---
+
+## 📄 Licença
+
+MIT © 2025 Brenno – Projeto com fins de prática e portfólio
